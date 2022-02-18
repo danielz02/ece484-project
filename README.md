@@ -39,7 +39,7 @@ For example,
 ```bash
 $ mkdir -p ~/gem_ws/src
 $ cd ~/gem_ws/src
-$ git clone https://github.com/GEM-Illinois/POLARIS_GEM_e2.git
+$ git clone https://gitlab.engr.illinois.edu/gemillins/POLARIS_GEM_e2.git
 ```
 
 Then we compile the whole workspace use `catkin_make`

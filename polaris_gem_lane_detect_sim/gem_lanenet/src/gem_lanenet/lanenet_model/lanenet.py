@@ -1,0 +1,61 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+# @Time    : 19-4-24 下午8:50
+# @Author  : MaybeShewill-CV
+# @Site    : https://github.com/MaybeShewill-CV/lanenet-lane-detection
+# @File    : lanenet.py
+# @IDE: PyCharm
+"""
+Implement LaneNet Model
+"""
+from .cnn_basenet import CNNBaseModel
+import tensorflow as tf
+from .lanenet_back_end import LaneNetBackEnd
+from .lanenet_front_end import LaneNetFrondEnd
+tf = tf.compat.v1
+
+
+class LaneNet(CNNBaseModel):
+    """
+
+    """
+    def __init__(self, phase, cfg):
+        """
+
+        """
+        super(LaneNet, self).__init__()
+        self._cfg = cfg
+        self._net_flag = self._cfg.MODEL.FRONT_END
+
+        self._frontend = LaneNetFrondEnd(
+            phase=phase, net_flag=self._net_flag, cfg=self._cfg
+        )
+        self._backend = LaneNetBackEnd(
+            phase=phase, cfg=self._cfg
+        )
+
+    def inference(self, input_tensor, name, reuse=False):
+        """
+
+        :param input_tensor:
+        :param name:
+        :param reuse
+        :return:
+        """
+        with tf.compat.v1.variable_scope(name_or_scope=name, reuse=reuse):
+            # first extract image features
+            extract_feats_result = self._frontend.build_model(
+                input_tensor=input_tensor,
+                name='{:s}_frontend'.format(self._net_flag),
+                reuse=reuse
+            )
+
+            # second apply backend process
+            binary_seg_prediction, instance_seg_prediction = self._backend.inference(
+                binary_seg_logits=extract_feats_result['binary_segment_logits']['data'],
+                instance_seg_logits=extract_feats_result['instance_segment_logits']['data'],
+                name='{:s}_backend'.format(self._net_flag),
+                reuse=reuse
+            )
+
+        return binary_seg_prediction, instance_seg_prediction

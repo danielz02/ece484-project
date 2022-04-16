@@ -4,12 +4,12 @@ import cv2
 import numpy as np
 from numpy.polynomial.polynomial import Polynomial
 import tensorflow as tf
-from lanenet.lanenet_model import lanenet, lanenet_postprocess
-from lanenet.parse_config_utils import Config
-from gem_lanenet.line_fit import Line
+from .lanenet_model import lanenet, lanenet_postprocess
+from .lanenet_model.parse_config_utils import Config
+from .line_fit import Line
 
-WARPED_IMG_W = 16*61  # pixels
-WARPED_IMG_H = 9*61  # pixels
+WARPED_IMG_W = 16 * 61  # pixels
+WARPED_IMG_H = 9 * 61  # pixels
 WARPED_IMG_SIZE = (WARPED_IMG_W, WARPED_IMG_H)
 LOOKAHEAD_PIXELS = WARPED_IMG_H // 2
 METER_PER_PIXEL = 0.03  # each pixel is about 0.03 m in the warped image

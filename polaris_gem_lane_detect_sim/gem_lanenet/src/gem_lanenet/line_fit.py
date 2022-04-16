@@ -1,8 +1,6 @@
 import numpy as np
 import cv2
-import matplotlib.pyplot as plt
-
-from gem_lanenet.perspective_utils import my_bird
+from .perspective_utils import my_bird
 
 DEBUG = False  # TODO a Pythonic way to set debug flags
 
@@ -207,16 +205,16 @@ def viz1(binary_warped, ret, save_file=None):
 
     out_img[nonzeroy[left_lane_inds], nonzerox[left_lane_inds]] = [255, 0, 0]
     out_img[nonzeroy[right_lane_inds], nonzerox[right_lane_inds]] = [0, 0, 255]
-    plt.imshow(out_img)
-    plt.plot(left_fitx, ploty, color='yellow')
-    plt.plot(right_fitx, ploty, color='yellow')
-    plt.xlim(0, 1280)
-    plt.ylim(720, 0)
-    if save_file is None:
-        plt.show()
-    else:
-        plt.savefig(save_file)
-    plt.gcf().clear()
+    # plt.imshow(out_img)
+    # plt.plot(left_fitx, ploty, color='yellow')
+    # plt.plot(right_fitx, ploty, color='yellow')
+    # plt.xlim(0, 1280)
+    # plt.ylim(720, 0)
+    # if save_file is None:
+    #     plt.show()
+    # else:
+    #     plt.savefig(save_file)
+    # plt.gcf().clear()
 
 
 def bird_fit(binary_warped, ret, save_file=None):
@@ -259,13 +257,13 @@ def bird_fit(binary_warped, ret, save_file=None):
     cv2.fillPoly(window_img, np.int_([right_line_pts]), (0, 255, 0))
     result = cv2.addWeighted(out_img, 1, window_img, 0.3, 0)
 
-    if DEBUG:
-        plt.imshow(result)
-        plt.plot(left_fitx, ploty, color='yellow')
-        plt.plot(right_fitx, ploty, color='yellow')
-        plt.xlim(0, 1280)
-        plt.ylim(720, 0)
-        plt.show()
+    # if DEBUG:
+    #     plt.imshow(result)
+    #     plt.plot(left_fitx, ploty, color='yellow')
+    #     plt.plot(right_fitx, ploty, color='yellow')
+    #     plt.xlim(0, 1280)
+    #     plt.ylim(720, 0)
+    #     plt.show()
     return result
 
 
@@ -360,16 +358,16 @@ def line_fit_pipeline(binary_img, source_img, detected, left_line, right_line):
     binary_img = cv2.resize(binary_img, (1280, 720), interpolation=cv2.INTER_LINEAR)
     img_birdeye, M, Minv = my_bird(binary_img)
 
-    if DEBUG:
-        f, axarray = plt.subplots(1, 2)
-        f.set_facecolor('white')
-        axarray[0].set_title('Before perspective transform')
-        axarray[0].imshow(binary_img, cmap='gray')
-        axarray[1].set_title('After perspective transform')
-        axarray[1].imshow(img_birdeye, cmap='gray')
-        for axis in axarray:
-            axis.set_axis_on()
-        plt.show()
+    # if DEBUG:
+    #     f, axarray = plt.subplots(1, 2)
+    #     f.set_facecolor('white')
+    #     axarray[0].set_title('Before perspective transform')
+    #     axarray[0].imshow(binary_img, cmap='gray')
+    #     axarray[1].set_title('After perspective transform')
+    #     axarray[1].imshow(img_birdeye, cmap='gray')
+    #     for axis in axarray:
+    #         axis.set_axis_on()
+    #     plt.show()
 
     # img_birdeye = cv2.cvtColor(img_birdeye, cv2.COLOR_BGR2GRAY)
 

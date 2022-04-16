@@ -1,7 +1,6 @@
 import ast
 import numpy as np
 import cv2
-import matplotlib.pyplot as plt
 from math import sqrt
 
 #
@@ -103,20 +102,20 @@ class Perspective:
 
         warped = cv2.warpPerspective(img, M, (w, h), flags=cv2.INTER_LINEAR)
 
-        if verbose:
-            f, axarray = plt.subplots(1, 2)
-            f.set_facecolor('white')
-            axarray[0].set_title('Before perspective transform')
-            axarray[0].imshow(img, cmap='gray')
-            for point in src:
-                axarray[0].plot(*point, '.')
-            axarray[1].set_title('After perspective transform')
-            axarray[1].imshow(warped, cmap='gray')
-            for point in dst:
-                axarray[1].plot(*point, '.')
-            for axis in axarray:
-                axis.set_axis_off()
-            plt.show()
+        # if verbose:
+        #     f, axarray = plt.subplots(1, 2)
+        #     f.set_facecolor('white')
+        #     axarray[0].set_title('Before perspective transform')
+        #     axarray[0].imshow(img, cmap='gray')
+        #     for point in src:
+        #         axarray[0].plot(*point, '.')
+        #     axarray[1].set_title('After perspective transform')
+        #     axarray[1].imshow(warped, cmap='gray')
+        #     for point in dst:
+        #         axarray[1].plot(*point, '.')
+        #     for axis in axarray:
+        #         axis.set_axis_off()
+        #     plt.show()
 
         def diag_image():
             return np.dstack((warped, warped, warped)) * 255

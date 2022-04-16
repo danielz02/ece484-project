@@ -95,7 +95,7 @@ def main(argv) -> None:
         return
 
     config_path = gem_lanenet_path / "configs/conf_polaris_gem.lanenet.yaml"
-    weights_path = gem_lanenet_path / "lanenet_weights/tusimple_lanenet.ckpt"
+    weights_path = gem_lanenet_path / "lanenet_weights/checkpoint"
 
     sec_start = argv.start  # second
     sec_stop = argv.stop  # second

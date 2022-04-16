@@ -13,6 +13,8 @@ from cv_bridge import CvBridge, CvBridgeError
 from gem_lane_detect_msgs.msg import SimpleLaneStamped
 from gem_lanenet.lanenet_w_line_fit import LaneNetWLineFit
 
+tensorflow = tensorflow.compat.v1
+
 
 class LaneNetLaneDetector:
     WHEEL_BASE = 1.75  # meter
@@ -32,6 +34,7 @@ class LaneNetLaneDetector:
 
     def img_callback(self, data: Image) -> None:
         try:
+            rospy.loginfo("Image Callback")
             cv_image = self._bridge.imgmsg_to_cv2(data, "bgr8")
             center_line, annotated_image = self._nnet.detect(cv_image)
 
@@ -106,7 +109,7 @@ def main(argv) -> None:
         lanenet_detector = LaneNetLaneDetector(nnet, frame_id, pub_lane)
 
     _ = rospy.Subscriber(
-            "image_raw",
+            "/gem/front_single_camera/image_raw",
             Image, lanenet_detector.img_callback, queue_size=1)
     try:
         rospy.spin()

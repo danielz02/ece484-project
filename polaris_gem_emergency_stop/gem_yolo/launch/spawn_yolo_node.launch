@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="src_path" default="$(find gem_yolo)/src/"/>
+    <arg name="weights_path" default="$(find gem_yolo)/yolo_weights/"/>
+    <arg name="is_simulator" default="false"/>
+    <arg name="use_gpu" default="true"/>
+    <arg name="debug" default="true"/>
+
+    <node pkg="gem_yolo" type="yolo_node.py" name="yolo_node" output="screen">
+        <env name="TORCH_HOME" value="$(arg weights_path)"/>
+        <param name="src_path" type="str" value="$(arg src_path)" />
+        <param name="weights_path" type="str" value="$(arg weights_path)" />
+        <param name="is_simulator" type="bool" value="$(arg is_simulator)" />
+        <param name="use_gpu" type="bool" value="$(arg use_gpu)" />
+    </node>
+</launch>

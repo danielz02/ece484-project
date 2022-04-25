@@ -36,6 +36,7 @@
   <depend>rospy</depend>
   <depend>sensor_msgs</depend>
   <depend>std_msgs</depend>
+  <depend>pacmod_msgs</depend>
 <!--  <depend>tf2_ros</depend>-->
 
   <!-- The export tag contains other, unspecified, tags -->
